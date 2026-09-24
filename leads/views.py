@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_GET
 from .forms import LeadForm
-from .models import CaseStudy, FAQ, Lead, PageContent, PricingPackage, ProcessStep, PromotionItem, RealtyFeature, Service
+from .models import CaseStudy, FAQ, Lead, PageContent, PricingPackage, ProcessStep, PromotionItem, RealtyFeature, Service, SiteSettings
 from .middleware import CampaignMiddleware
 
 def _context(request, page_key=None, **extra):
@@ -32,8 +32,10 @@ def _lead(request):
         if form.is_valid() and not form.cleaned_data.get("website") and time.time() - started >= 3:
             lead = form.save(commit=False); lead.source = request.META.get("HTTP_REFERER", "")[:500]; lead.save()
             body = "\n".join([f"Имя: {lead.name}", f"Телефон: {lead.phone}", f"Мессенджер: {lead.messenger}", f"Компания: {lead.company}", f"Проект: {lead.project_type}", f"Бюджет: {lead.budget}", f"Задача: {lead.description}", f"Источник: {lead.source}", f"UTM: {lead.utm_source} / {lead.utm_medium} / {lead.utm_campaign}"])
-            if settings.CONTACT_EMAIL and not settings.CONTACT_EMAIL.startswith("["):
-                message = EmailMessage(f"Заявка с сайта IT GROUP: {lead.project_type}", body, settings.DEFAULT_FROM_EMAIL, [settings.CONTACT_EMAIL])
+            site_config = SiteSettings.objects.first()
+            notification_email = site_config.email if site_config and site_config.email else settings.CONTACT_EMAIL
+            if notification_email and not notification_email.startswith("["):
+                message = EmailMessage(f"Заявка с сайта IT GROUP: {lead.project_type}", body, settings.DEFAULT_FROM_EMAIL, [notification_email])
                 if lead.attachment: message.attach(lead.attachment.name.split("/")[-1], lead.attachment.read())
                 try: message.send(fail_silently=True)
                 except Exception: pass
