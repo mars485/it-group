@@ -39,9 +39,11 @@ PY
 )
 
 if [ -n "$DOMAIN" ] && [ "$IS_IP" = "yes" ]; then
-  SITE_URL="http://$DOMAIN:8000"
+  URL_HOST="$DOMAIN"
+  if [[ "$DOMAIN" == *":"* ]]; then URL_HOST="[$DOMAIN]"; fi
+  SITE_URL="http://$URL_HOST:8000"
   ALLOWED_HOSTS="$DOMAIN,localhost,127.0.0.1"
-  CSRF_TRUSTED_ORIGINS="http://$DOMAIN:8000"
+  CSRF_TRUSTED_ORIGINS="http://$URL_HOST:8000"
   SECURE_SSL_REDIRECT="False"
 elif [ -n "$DOMAIN" ]; then
   SITE_URL="https://$DOMAIN"
