@@ -19,14 +19,31 @@ if [ ! -f .env ]; then
   cp .env.example .env
 fi
 
-read -r -p "Домен сайта (оставьте пустым для http://IP-СЕРВЕРА:8000): " DOMAIN
+read -r -p "Домен сайта или IP сервера (пусто — только локальный запуск): " DOMAIN
 DOMAIN=$(DOMAIN="$DOMAIN" python3 -c 'import os; print(os.environ["DOMAIN"].strip().removeprefix("https://").removeprefix("http://").strip("/"))')
 if [[ "$DOMAIN" == *"/"* || "$DOMAIN" == *" "* ]]; then
-  echo "Введите только домен, например site.example.ru, без пути." >&2
+  echo "Введите только домен или IP, без протокола и пути." >&2
   exit 1
 fi
 
-if [ -n "$DOMAIN" ]; then
+IS_IP=$(DOMAIN="$DOMAIN" python3 - <<'PY'
+import ipaddress
+import os
+
+try:
+    ipaddress.ip_address(os.environ["DOMAIN"])
+    print("yes")
+except ValueError:
+    print("no")
+PY
+)
+
+if [ -n "$DOMAIN" ] && [ "$IS_IP" = "yes" ]; then
+  SITE_URL="http://$DOMAIN:8000"
+  ALLOWED_HOSTS="$DOMAIN,localhost,127.0.0.1"
+  CSRF_TRUSTED_ORIGINS="http://$DOMAIN:8000"
+  SECURE_SSL_REDIRECT="False"
+elif [ -n "$DOMAIN" ]; then
   SITE_URL="https://$DOMAIN"
   ALLOWED_HOSTS="$DOMAIN,localhost,127.0.0.1"
   CSRF_TRUSTED_ORIGINS="https://$DOMAIN"
