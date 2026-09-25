@@ -9,7 +9,7 @@ from .models import (
 admin.site.site_header = "IT GROUP · управление сайтом"
 admin.site.site_title = "Панель IT GROUP"
 admin.site.index_title = "Контент и заявки"
-admin.site.site_url = "/"
+admin.site.site_url = "/"\nadmin.site.empty_value_display = "—"
 
 
 @admin.register(SiteSettings)

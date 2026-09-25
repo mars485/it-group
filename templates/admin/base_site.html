@@ -1,0 +1,23 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | IT GROUP{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+  <a href="{% url 'admin:index' %}" class="it-admin-brand">
+    <span class="it-admin-mark" aria-hidden="true">IT</span>
+    <span class="it-admin-brand-copy">
+      <strong>IT GROUP</strong>
+      <small>ПАНЕЛЬ УПРАВЛЕНИЯ</small>
+    </span>
+  </a>
+</h1>
+{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

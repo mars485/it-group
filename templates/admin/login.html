@@ -1,0 +1,84 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+{% block content_title %}{% endblock %}
+
+{% block content %}
+<main class="it-login-layout">
+  <section class="it-login-intro" aria-label="IT GROUP">
+    <div class="it-login-brand">
+      <span class="it-login-mark" aria-hidden="true">IT</span>
+      <span><strong>IT GROUP</strong><small>WEB STUDIO</small></span>
+    </div>
+
+    <div class="it-login-message">
+      <span class="it-eyebrow"><span></span> ПРОСТРАНСТВО УПРАВЛЕНИЯ</span>
+      <h1>Ваш сайт.<br>Ваши правила.</h1>
+      <p>Управляйте страницами, услугами и заявками в одном месте.</p>
+    </div>
+
+    <div class="it-login-footer">
+      <span class="it-login-orbit it-orbit-one"></span>
+      <span class="it-login-orbit it-orbit-two"></span>
+      <span>IT GROUP <i>·</i> DIGITAL STUDIO</span>
+    </div>
+  </section>
+
+  <section class="it-login-panel">
+    <div class="it-login-card">
+      <div class="it-login-card-heading">
+        <span class="it-login-kicker">РАДЫ ВАС ВИДЕТЬ</span>
+        <h2>Войти в аккаунт</h2>
+        <p>Введите данные администратора, чтобы продолжить.</p>
+      </div>
+
+      {% if form.errors %}
+        <div class="it-login-error" role="alert">
+          <span class="it-error-icon" aria-hidden="true">!</span>
+          <span>Не удалось войти. Проверьте имя пользователя и пароль.</span>
+        </div>
+      {% endif %}
+
+      {% if user.is_authenticated %}
+        <div class="it-login-error" role="alert">
+          У этой учётной записи нет доступа к панели управления.
+        </div>
+      {% endif %}
+
+      <form action="{{ app_path }}" method="post" id="login-form" class="it-login-form">
+        {% csrf_token %}
+        <div class="it-form-row">
+          <label for="id_username">Имя пользователя</label>
+          <div class="it-input-wrap">
+            <span class="it-input-icon" aria-hidden="true">@</span>
+            {{ form.username }}
+          </div>
+          {% if form.username.errors %}<div class="it-field-error">{{ form.username.errors }}</div>{% endif %}
+        </div>
+
+        <div class="it-form-row">
+          <label for="id_password">Пароль</label>
+          <div class="it-input-wrap">
+            <span class="it-input-icon it-lock-icon" aria-hidden="true">●</span>
+            {{ form.password }}
+          </div>
+          {% if form.password.errors %}<div class="it-field-error">{{ form.password.errors }}</div>{% endif %}
+        </div>
+
+        {% if form.non_field_errors %}<div class="it-field-error">{{ form.non_field_errors }}</div>{% endif %}
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit" class="it-login-button">
+          <span>Войти в панель</span><span class="it-button-arrow" aria-hidden="true">→</span>
+        </button>
+      </form>
+
+      <a class="it-back-to-site" href="/">
+        <span aria-hidden="true">←</span> Вернуться на сайт
+      </a>
+    </div>
+    <div class="it-login-panel-foot">Защищённая административная зона</div>
+  </section>
+</main>
+{% endblock %}
