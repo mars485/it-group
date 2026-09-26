@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block bodyclass %}{{ block.super }} login{% endblock %}
 {% block breadcrumbs %}{% endblock %}
@@ -10,7 +10,7 @@
 <main class="it-login-layout">
   <section class="it-login-intro" aria-label="IT GROUP">
     <div class="it-login-brand">
-      <span class="it-login-mark" aria-hidden="true">IT</span>
+      <span class="it-login-mark" aria-hidden="true"><img src="{% static 'graphics/it-group-lion.png' %}" alt=""></span>
       <span><strong>IT GROUP</strong><small>WEB STUDIO</small></span>
     </div>
 
@@ -28,6 +28,10 @@
   </section>
 
   <section class="it-login-panel">
+    <div class="it-login-theme-switch it-theme-switch" role="group" aria-label="Тема оформления">
+      <button type="button" data-it-theme-choice="light" aria-pressed="false">☀ <span>Светлая</span></button>
+      <button type="button" data-it-theme-choice="dark" aria-pressed="false">☾ <span>Тёмная</span></button>
+    </div>
     <div class="it-login-card">
       <div class="it-login-card-heading">
         <span class="it-login-kicker">РАДЫ ВАС ВИДЕТЬ</span>

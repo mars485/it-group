@@ -6,18 +6,23 @@
 {% block branding %}
 <h1 id="site-name">
   <a href="{% url 'admin:index' %}" class="it-admin-brand">
-    <span class="it-admin-mark" aria-hidden="true">IT</span>
+    <span class="it-admin-mark" aria-hidden="true"><img src="{% static 'graphics/it-group-lion.png' %}" alt=""></span>
     <span class="it-admin-brand-copy">
       <strong>IT GROUP</strong>
       <small>ПАНЕЛЬ УПРАВЛЕНИЯ</small>
     </span>
   </a>
 </h1>
+<div class="it-admin-theme-switch it-theme-switch" role="group" aria-label="Тема оформления">
+  <button type="button" data-it-theme-choice="light" aria-pressed="false">☀ <span>Светлая</span></button>
+  <button type="button" data-it-theme-choice="dark" aria-pressed="false">☾ <span>Тёмная</span></button>
+</div>
 {% endblock %}
 
 {% block extrastyle %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+  <script src="{% static 'js/admin-theme.js' %}"></script>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}
