@@ -57,3 +57,34 @@
 .feature-list{margin-top:17px}
 @media(max-width:760px){.page-hero::after{right:-155px;top:-65px;width:410px;height:300px;opacity:.55}.hero-network-art{inset:-5% -1%;width:103%;height:110%;opacity:.48}.service-icon{width:42px;height:42px;margin-top:14px}.service-icon .it-graphic-icon{width:22px;height:22px}.property-graphic{min-height:105px;padding:8px}.property-graphic img{height:86px}.feature-card-top>i,.info-card-top>i{width:37px;height:37px}}
 @media(prefers-reduced-motion:reduce){.problem-card,.feature-card,.process-card{transition:none}}
+
+
+/* Project discussion modal */
+body.project-modal-open{overflow:hidden}
+.project-modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s}
+.project-modal.is-open{opacity:1;visibility:visible}
+.project-modal-backdrop{position:absolute;inset:0;background:rgba(3,7,13,.78);backdrop-filter:blur(10px)}
+.project-modal-panel{position:relative;display:grid;grid-template-columns:.85fr 1.15fr;width:min(900px,100%);max-height:min(760px,calc(100dvh - 48px));overflow:auto;border:1px solid #2c3c53;border-radius:24px;background:radial-gradient(ellipse at 12% 0,rgba(65,124,255,.18),transparent 42%),linear-gradient(145deg,#121b29,#0c111a 72%);box-shadow:0 32px 100px rgba(0,0,0,.6),0 0 55px rgba(65,124,255,.1);transform:translateY(14px) scale(.985);transition:transform .22s}
+.project-modal.is-open .project-modal-panel{transform:translateY(0) scale(1)}
+.project-modal-close{position:absolute;z-index:2;right:15px;top:13px;display:grid;place-items:center;width:38px;height:38px;border:1px solid #31435c;border-radius:12px;background:#121c2a;color:#d9e5f6;font-size:25px;line-height:1;cursor:pointer}
+.project-modal-close:hover{border-color:#70a6ff;color:#fff}
+.project-modal-intro{position:relative;overflow:hidden;padding:46px 34px;background:linear-gradient(155deg,rgba(20,38,61,.84),rgba(14,21,32,.55));border-right:1px solid rgba(126,166,221,.13)}
+.project-modal-intro::after{content:"";position:absolute;width:230px;height:230px;border:1px solid rgba(82,214,220,.15);border-radius:50%;right:-130px;bottom:-105px;box-shadow:0 0 0 18px rgba(82,214,220,.025),0 0 0 38px rgba(82,214,220,.018)}
+.project-modal-kicker{display:flex;align-items:center;gap:9px;color:#9bb2d2;font-size:9px;font-weight:700;letter-spacing:.15em}
+.project-modal-kicker i{width:7px;height:7px;border-radius:50%;background:#52d6dc;box-shadow:0 0 14px #52d6dc}
+.project-modal-intro h2{margin:38px 0 13px;font:700 clamp(30px,4vw,42px)/1.1 var(--display);letter-spacing:-.05em}
+.project-modal-intro>p{max-width:340px;color:#a8b5c7;font-size:14px;line-height:1.7}
+.project-modal-points{display:grid;gap:13px;margin-top:34px}
+.project-modal-points span{display:flex;align-items:center;gap:11px;color:#becbdd;font-size:12px}
+.project-modal-points b{display:grid;place-items:center;width:28px;height:28px;border:1px solid #324967;border-radius:9px;background:#16263b;color:#82aeff;font-size:9px}
+.project-modal-content{padding:39px 34px 30px;min-width:0}
+.project-modal-content .form-card{padding:0;border:0;background:none;box-shadow:none}
+.project-modal-content .form-heading{padding-right:45px}
+.project-modal-content .form-row{gap:12px}
+.project-modal-content .project-modal-placeholder{display:flex;flex-direction:column;align-items:flex-start;gap:13px;padding:35px 0}
+.project-modal-placeholder p{color:#a8b5c7;font-size:15px}
+.project-modal-direct{color:#8bb5ff;font-size:13px;font-weight:600}
+.project-modal-direct:hover{color:#fff}
+.project-modal-content .success-state{padding:38px 12px}
+@media(max-width:680px){.project-modal{padding:12px}.project-modal-panel{display:block;border-radius:20px;max-height:calc(100dvh - 24px)}.project-modal-intro{padding:28px 22px 20px;border-right:0;border-bottom:1px solid rgba(126,166,221,.13)}.project-modal-intro h2{margin:20px 45px 9px 0;font-size:30px}.project-modal-intro>p{font-size:12px;margin-bottom:0}.project-modal-points{display:none}.project-modal-content{padding:22px}.project-modal-content .field{margin-bottom:12px}.project-modal-content .form-card{padding:0}.project-modal-content .form-heading{margin-bottom:12px}.project-modal-content .form-row{display:grid;grid-template-columns:1fr;gap:0}.project-modal-content .consent{font-size:11px}.project-modal-content .form-submit{width:100%}}
+@media(prefers-reduced-motion:reduce){.project-modal,.project-modal-panel{transition:none}}
