@@ -26,7 +26,7 @@ def site_settings(request):
         "site_theme": theme,
         "site_font_family": font,
         "site_display_family": display,
-        "site_font_scale": (config.font_scale if config else 100) / 100,
+        "site_font_scale": f"{(config.font_scale if config else 100) / 100:.2f}",
         "site_logo_url": logo_url,
         "site_config": config,
         "site_brand": config.brand_name if config else "IT GROUP",
