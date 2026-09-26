@@ -244,7 +244,7 @@ body.login #content .it-login-message h1 { color: #fff; }
 .it-admin-mark, .it-login-mark { overflow: hidden; background: #050608; box-shadow: 0 0 0 1px rgb(255 255 255 / 15%); }
 .it-admin-mark img, .it-login-mark img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .it-theme-switch { display: inline-flex; align-items: center; gap: 3px; padding: 3px; border: 1px solid #394b64; border-radius: 10px; background: #16243a; }
-.it-theme-switch button { border: 0; border-radius: 7px; padding: 6px 9px; background: transparent; color: #aebcd2; font: 600 11px inherit; cursor: pointer; }
+.it-theme-switch button { border: 0; border-radius: 7px; padding: 6px 9px; background: transparent; color: #aebcd2; font-size: 11px; font-weight: 600; font-family: inherit; cursor: pointer; }
 .it-theme-switch button[aria-pressed="true"] { background: #417cff; color: #fff; box-shadow: 0 3px 10px rgb(31 88 190 / 30%); }
 .it-theme-switch button:hover:not([aria-pressed="true"]) { background: #233650; color: #fff; }
 .it-theme-switch button:focus-visible { outline: 2px solid #52d6dc; outline-offset: 2px; }
