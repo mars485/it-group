@@ -1,4 +1,4 @@
-import json, time, urllib.request
+import html, json, logging, time, urllib.request
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.http import HttpResponse
@@ -7,6 +7,49 @@ from django.views.decorators.http import require_GET
 from .forms import LeadForm
 from .models import CaseStudy, FAQ, Lead, PageContent, PricingPackage, ProcessStep, PromotionItem, RealtyFeature, Service, SiteSettings
 from .middleware import CampaignMiddleware
+
+logger = logging.getLogger(__name__)
+
+def _notify_telegram_lead(lead):
+    token = settings.TELEGRAM_BOT_TOKEN
+    chat_id = settings.TELEGRAM_CHAT_ID
+    if not token or not chat_id:
+        return
+
+    def safe(value, limit=500):
+        value = str(value or "—").strip()
+        if len(value) > limit:
+            value = value[:limit - 1] + "…"
+        return html.escape(value)
+
+    lines = [
+        "<b>Новая заявка с сайта IT GROUP</b>",
+        f"<b>Имя:</b> {safe(lead.name)}",
+        f"<b>Телефон:</b> {safe(lead.phone)}",
+        f"<b>Проект:</b> {safe(lead.project_type)}",
+        f"<b>Мессенджер:</b> {safe(lead.messenger)}",
+        f"<b>Компания:</b> {safe(lead.company)}",
+        f"<b>Бюджет:</b> {safe(lead.budget)}",
+        f"<b>Задача:</b> {safe(lead.description, 1600)}",
+        f"<b>Источник:</b> {safe(lead.source, 450)}",
+        f"<b>UTM:</b> {safe(' / '.join(filter(None, [lead.utm_source, lead.utm_medium, lead.utm_campaign])), 350)}",
+    ]
+    if lead.attachment:
+        lines.append(f"<b>Приложен файл:</b> {safe(lead.attachment.name.split('/')[-1], 180)}")
+    payload = {"chat_id": chat_id, "text": "\n".join(lines), "parse_mode": "HTML", "disable_web_page_preview": True}
+    request = urllib.request.Request(
+        f"https://api.telegram.org/bot{token}/sendMessage",
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=6) as response:
+            result = json.loads(response.read().decode("utf-8"))
+        if not result.get("ok"):
+            logger.warning("Telegram lead notification was rejected by the API")
+    except Exception as exc:
+        logger.warning("Telegram lead notification failed (%s)", type(exc).__name__)
 
 def _context(request, page_key=None, **extra):
     page_content = PageContent.objects.filter(page=page_key, is_published=True).first() if page_key else None
@@ -37,8 +80,9 @@ def _lead(request):
             if notification_email and not notification_email.startswith("["):
                 message = EmailMessage(f"Заявка с сайта IT GROUP: {lead.project_type}", body, settings.DEFAULT_FROM_EMAIL, [notification_email])
                 if lead.attachment: message.attach(lead.attachment.name.split("/")[-1], lead.attachment.read())
-                try: message.send(fail_silently=True)
-                except Exception: pass
+                try: message.send(fail_silently=False)
+                except Exception as exc: logger.warning("Lead email notification failed (%s)", type(exc).__name__)
+            _notify_telegram_lead(lead)
             if settings.CRM_WEBHOOK_URL:
                 try:
                     req = urllib.request.Request(settings.CRM_WEBHOOK_URL, data=json.dumps({"name":lead.name,"phone":lead.phone,"messenger":lead.messenger,"company":lead.company,"project_type":lead.project_type,"description":lead.description,"budget":lead.budget,"utm_source":lead.utm_source,"utm_medium":lead.utm_medium,"utm_campaign":lead.utm_campaign,"utm_content":lead.utm_content,"utm_term":lead.utm_term,"created_at":lead.created_at.isoformat()}).encode(), headers={"Content-Type":"application/json"}, method="POST")
