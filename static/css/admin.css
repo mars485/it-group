@@ -234,3 +234,8 @@ body.login #footer { min-height: 24px; color: #98a2b3; }
   #content { padding: 20px 14px 30px; }
   #content h1 { font-size: 22px; }
 }
+
+/* The login view has no admin navigation. Keep the form centered even if Django renders the sidebar controls. */
+body.login #nav-sidebar, body.login #toggle-nav-sidebar { display: none !important; }
+body.login #main { width: 100%; }
+body.login #content .it-login-message h1 { color: #fff; }
