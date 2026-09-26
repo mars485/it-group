@@ -92,3 +92,9 @@ body.project-modal-open{overflow:hidden}
 /* IT GROUP lion logo */
 .brand-mark{overflow:hidden;background:#050608;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 5px 18px rgba(0,0,0,.24)}.brand-mark .brand-lion{display:block;width:100%;height:100%;object-fit:cover;object-position:center}.brand-name{color:#f4f7fb}.brand-name-it{color:#ff303a}.brand-dot{color:#ff303a}
 @media(max-width:760px){.brand-mark{width:32px;height:32px;border-radius:10px}}
+
+/* Branded file upload control */
+.field input[type=file]{cursor:pointer;color:#aebbd0}
+.field input[type=file]::file-selector-button{margin-right:12px;padding:9px 14px;border:1px solid rgba(141,181,255,.35);border-radius:8px;background:linear-gradient(110deg,#3977f6,#2689c8);color:#fff;font:700 11px var(--font);cursor:pointer;box-shadow:0 5px 16px rgba(36,108,228,.18);transition:filter .18s,transform .18s}
+.field input[type=file]::file-selector-button:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.field input[type=file]:focus-visible{outline:2px solid #52d6dc;outline-offset:2px}
