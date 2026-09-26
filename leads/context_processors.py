@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.templatetags.static import static
 from .models import NavigationItem, SiteSettings
 
 
@@ -7,8 +8,11 @@ def site_settings(request):
     phone = config.phone if config and config.phone else "[УКАЗАТЬ ТЕЛЕФОН]"
     email = config.email if config and config.email else settings.CONTACT_EMAIL
     navigation = NavigationItem.objects.filter(is_visible=True)
+    site_url = (config.site_url if config and config.site_url else settings.SITE_URL).rstrip("/")
+    logo_url = config.logo_icon.url if config and config.logo_icon else static("graphics/it-group-lion.png")
     return {
-        "SITE_URL": settings.SITE_URL,
+        "SITE_URL": site_url,
+        "site_logo_url": logo_url,
         "site_config": config,
         "site_brand": config.brand_name if config else "IT GROUP",
         "site_tagline": config.brand_tagline if config else "Сайты и цифровые решения для бизнеса",

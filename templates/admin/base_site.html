@@ -6,7 +6,7 @@
 {% block branding %}
 <h1 id="site-name">
   <a href="{% url 'admin:index' %}" class="it-admin-brand">
-    <span class="it-admin-mark" aria-hidden="true"><img src="{% static 'graphics/it-group-lion.png' %}" alt=""></span>
+    <span class="it-admin-mark" aria-hidden="true"><img src="{{ site_logo_url }}" alt=""></span>
     <span class="it-admin-brand-copy">
       <strong>IT GROUP</strong>
       <small>ПАНЕЛЬ УПРАВЛЕНИЯ</small>

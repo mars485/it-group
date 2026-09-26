@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 
@@ -5,6 +6,8 @@ from django.db import models
 class SiteSettings(models.Model):
     brand_name = models.CharField("Название бренда", max_length=120, default="IT GROUP")
     brand_tagline = models.CharField("Короткое описание", max_length=240, default="Сайты и цифровые решения для бизнеса")
+    site_url = models.URLField("Публичный адрес сайта", blank=True, help_text="Например, https://karpiev.ru. Если пусто, используется SITE_URL из .env.")
+    logo_icon = models.ImageField("Логотип-иконка", upload_to="branding/", blank=True, help_text="PNG, JPG или WebP до 2 МБ. Отображается в шапке, подвале и админке.")
     phone = models.CharField("Телефон", max_length=80, blank=True)
     email = models.EmailField("Email", blank=True)
     telegram_url = models.URLField("Ссылка на Telegram", blank=True)
@@ -18,6 +21,19 @@ class SiteSettings(models.Model):
     secondary_color = models.CharField("Дополнительный акцентный цвет", max_length=7, default="#52D6DC", validators=[RegexValidator(r"^#[0-9A-Fa-f]{6}$", "Укажите цвет в формате #RRGGBB")])
     background_color = models.CharField("Цвет фона", max_length=7, default="#0A0D14", validators=[RegexValidator(r"^#[0-9A-Fa-f]{6}$", "Укажите цвет в формате #RRGGBB")])
     yandex_metrika_id = models.CharField("ID Яндекс Метрики", max_length=40, blank=True)
+    notification_email = models.EmailField("Email для заявок", blank=True, help_text="Если пусто, используется контактный email или CONTACT_EMAIL из .env.")
+    email_notifications_enabled = models.BooleanField("Отправлять заявки на email", default=True)
+    smtp_host = models.CharField("SMTP-сервер", max_length=255, blank=True, help_text="Если пусто, используются настройки SMTP из .env.")
+    smtp_port = models.PositiveIntegerField("SMTP-порт", default=587)
+    smtp_use_tls = models.BooleanField("STARTTLS (обычно порт 587)", default=True)
+    smtp_use_ssl = models.BooleanField("SSL (обычно порт 465)", default=False)
+    smtp_user = models.CharField("SMTP-логин", max_length=255, blank=True)
+    smtp_password = models.CharField("SMTP-пароль приложения", max_length=255, blank=True)
+    smtp_from_email = models.EmailField("Адрес отправителя", blank=True)
+    telegram_notifications_enabled = models.BooleanField("Отправлять заявки в Telegram", default=True)
+    telegram_bot_token = models.CharField("Токен Telegram-бота", max_length=255, blank=True)
+    telegram_chat_id = models.CharField("ID чата Telegram", max_length=80, blank=True)
+    crm_webhook_url = models.URLField("Webhook CRM", blank=True, help_text="URL для передачи новых заявок. Если пусто, используется CRM_WEBHOOK_URL из .env.")
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
 
     class Meta:
@@ -26,6 +42,11 @@ class SiteSettings(models.Model):
 
     def __str__(self):
         return "Общие настройки сайта"
+
+    def clean(self):
+        super().clean()
+        if self.smtp_host and self.smtp_use_tls and self.smtp_use_ssl:
+            raise ValidationError("Для SMTP выберите только один режим: STARTTLS или SSL.")
 
     def save(self, *args, **kwargs):
         self.pk = 1
