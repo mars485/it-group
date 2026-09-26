@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+<symbol id="browser" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="6" cy="6.5" r=".5"/><circle cx="9" cy="6.5" r=".5"/><path d="M7 13h10M7 16h6"/></symbol>
+<symbol id="landing" viewBox="0 0 24 24"><path d="M4 19 9 5l11 11-6 1-3 4-2-6-5 4Z"/><path d="M13 6V3M18 9l3-1"/></symbol>
+<symbol id="store" viewBox="0 0 24 24"><path d="M4 10v10h16V10M3 10l2-6h14l2 6"/><path d="M3 10a2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0 2.5 2.5 0 0 0 5 0M9 20v-6h6v6"/></symbol>
+<symbol id="home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10Z"/><path d="M17 8V5h2v4"/></symbol>
+<symbol id="refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5M8 10h5M10.5 7.5v5"/></symbol>
+<symbol id="megaphone" viewBox="0 0 24 24"><path d="m4 13 13 4V7L4 11v2ZM17 9l4-2v10l-4-2M7 14l2 6h4l-2-5"/></symbol>
+<symbol id="workflow" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="6" rx="2"/><rect x="14" y="15" width="7" height="6" rx="2"/><rect x="14" y="3" width="7" height="6" rx="2"/><path d="M6.5 9v3.5a3 3 0 0 0 3 3H14M17.5 9v6"/></symbol>
+<symbol id="support" viewBox="0 0 24 24"><path d="M4 13v-2a8 8 0 0 1 16 0v2M4 13h3v6H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 1-2ZM20 13h-3v6h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-1-2ZM17 19c-1 2-3 2-5 2"/></symbol>
+<symbol id="speed" viewBox="0 0 24 24"><path d="M4 18a9 9 0 1 1 16 0M7 18h10"/><path d="m12 13 4-4"/><circle cx="12" cy="13" r="1"/></symbol>
+<symbol id="target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/><path d="m15.5 8.5 4-4M16 4h4v4"/></symbol>
+<symbol id="chart" viewBox="0 0 24 24"><path d="M4 19V5M4 19h17"/><rect x="7" y="12" width="3" height="7" rx="1"/><rect x="13" y="8" width="3" height="11" rx="1"/><rect x="19" y="4" width="3" height="15" rx="1"/></symbol>
+<symbol id="message" viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-5.5A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8 11h8M8 14h5"/></symbol>
+<symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+<symbol id="spark" viewBox="0 0 24 24"><path d="m12 2 1.8 7.2L21 12l-7.2 1.8L12 21l-1.8-7.2L3 12l7.2-2.8L12 2Z"/><path d="m19 2 .7 2.3L22 5l-2.3.7L19 8l-.7-2.3L16 5l2.3-.7L19 2Z"/></symbol>
+<symbol id="check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16.5 9"/></symbol>
+<symbol id="compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/></symbol>
+<symbol id="layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></symbol>
+<symbol id="brush" viewBox="0 0 24 24"><path d="m14 4 6 6M3 21c4 0 7-2 7-5 0-2-1-3-3-3-3 0-4 4-4 8ZM14 4l-3 3 6 6 3-3a2 2 0 0 0 0-3l-3-3a2 2 0 0 0-3 0Z"/></symbol>
+<symbol id="code" viewBox="0 0 24 24"><path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></symbol>
+<symbol id="filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v5l-4 2v-7L3 5Z"/><path d="M8 8h8"/></symbol>
+<symbol id="calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/></symbol>
+<symbol id="calculator" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></symbol>
+<symbol id="map" viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/></symbol>
+<symbol id="user-check" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 13l2 2 4-4"/></symbol>
+<symbol id="phone" viewBox="0 0 24 24"><path d="M6 3h3l2 5-2 2a15 15 0 0 0 5 5l2-2 5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2Z"/></symbol>
+<symbol id="report" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h5M8 12h8M8 16h8"/></symbol>
+<symbol id="rocket" viewBox="0 0 24 24"><path d="M14 4c2-2 5-2 6-2 0 2 0 5-2 7l-5 5-5-5 6-5Z"/><path d="m8 9-4 1-2 4 6-1M14 14l-1 6 4-2 1-4M8 16c-2 0-3 1-4 4 3-1 4-2 4-4Z"/><circle cx="16" cy="7" r="1"/></symbol>
+</svg>
