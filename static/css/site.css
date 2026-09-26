@@ -98,3 +98,40 @@ body.project-modal-open{overflow:hidden}
 .field input[type=file]::file-selector-button{margin-right:12px;padding:9px 14px;border:1px solid rgba(141,181,255,.35);border-radius:8px;background:linear-gradient(110deg,#3977f6,#2689c8);color:#fff;font:700 calc(11px * var(--font-scale)) var(--font);cursor:pointer;box-shadow:0 5px 16px rgba(36,108,228,.18);transition:filter .18s,transform .18s}
 .field input[type=file]::file-selector-button:hover{filter:brightness(1.12);transform:translateY(-1px)}
 .field input[type=file]:focus-visible{outline:2px solid #52d6dc;outline-offset:2px}
+
+/* Responsive project dialog: its content scrolls while close stays visible. */
+.project-modal-panel{display:block;overflow:hidden;max-height:calc(100dvh - 48px)}
+.project-modal-scroll{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);max-height:calc(100dvh - 48px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.project-modal-close{z-index:5;width:44px;height:44px}
+.project-modal-content,.project-modal-intro,.project-modal-content .field{min-width:0}
+.project-modal-content .field input,.project-modal-content .field textarea,.project-modal-content .field select{min-width:0}
+@media(max-width:900px){
+  .project-modal-panel{width:min(680px,100%)}
+  .project-modal-scroll{grid-template-columns:minmax(0,1fr)}
+  .project-modal-intro{padding:28px 32px 20px;border-right:0;border-bottom:1px solid rgba(126,166,221,.13)}
+  .project-modal-intro h2{margin:18px 48px 8px 0;font-size:calc(32px * var(--font-scale))}
+  .project-modal-intro>p{margin-bottom:0}
+  .project-modal-points{display:flex;flex-wrap:wrap;gap:9px 16px;margin-top:18px}
+  .project-modal-content{padding:26px 32px 30px}
+}
+@media(max-width:680px){
+  .project-modal{padding:0}
+  .project-modal-panel{width:100%;height:100dvh;max-height:100dvh;border:0;border-radius:0;transform:translateY(12px)}
+  .project-modal.is-open .project-modal-panel{transform:none}
+  .project-modal-scroll{max-height:100dvh;padding-bottom:env(safe-area-inset-bottom)}
+  .project-modal-close{top:calc(10px + env(safe-area-inset-top));right:12px}
+  .project-modal-intro{padding:calc(24px + env(safe-area-inset-top)) 20px 18px}
+  .project-modal-intro h2{margin:18px 52px 8px 0;font-size:calc(28px * var(--font-scale))}
+  .project-modal-intro>p{font-size:calc(13px * var(--font-scale))}
+  .project-modal-points{display:none}
+  .project-modal-content{padding:20px 20px 28px}
+  .project-modal-content .form-heading{padding-right:0}
+  .project-modal-content .form-row{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+  .project-modal-content .field input,.project-modal-content .field textarea,.project-modal-content .field select{font-size:max(16px,calc(16px * var(--font-scale)))}
+  .project-modal-content .form-submit{min-height:52px}
+}
+@media(max-height:600px) and (min-width:681px){
+  .project-modal{padding:10px}
+  .project-modal-panel,.project-modal-scroll{max-height:calc(100dvh - 20px)}
+  .project-modal-intro{padding-block:20px}
+}
