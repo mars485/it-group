@@ -7,3 +7,7 @@ db.sqlite3
 media
 staticfiles
 *.zip
+backups/
+transfer/
+*.sqlite3
+*.tar.gz

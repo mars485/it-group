@@ -35,7 +35,7 @@
 
 ## Установка и развёртывание CMS
 
-Подробная инструкция для ZimaOS/Linux через Docker, обычного VPS без Docker и Python-хостинга находится в [INSTALL.md](INSTALL.md). В ней есть настройка домена, HTTPS, SMTP, админки, обновлений, резервного копирования и разбор частых ошибок.
+Подробная инструкция для ZimaOS/Linux через Docker, обычного VPS без Docker и Python-хостинга находится в [INSTALL.md](INSTALL.md). Для переноса работающего сайта с ZimaOS на VPS с сохранением базы, медиа и админки используйте [VPS_MIGRATION.md](VPS_MIGRATION.md): отдельный Compose на loopback, Nginx/HTTPS на VPS и переключение DNS. В ней есть настройка домена, HTTPS, SMTP, админки, обновлений, резервного копирования и разбор частых ошибок.
 
 ## Автоустановка на ZimaOS / Linux через Docker
 

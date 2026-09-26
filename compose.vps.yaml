@@ -1,0 +1,24 @@
+name: itgroup-vps
+
+services:
+  web:
+    build: .
+    image: itgroup-vps-web
+    container_name: itgroup-vps-site
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:18000:8000"
+    volumes:
+      - itgroup_data:/app/data
+      - itgroup_uploads:/app/media
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os,urllib.request,urllib.parse; host=urllib.parse.urlparse(os.environ['SITE_URL']).netloc; urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:8000/', headers={'Host':host,'X-Forwarded-Proto':'https'}), timeout=5)"]
+      interval: 30s
+      timeout: 8s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  itgroup_data:
+  itgroup_uploads:
