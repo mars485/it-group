@@ -197,7 +197,7 @@ python -c 'import secrets; print(secrets.token_urlsafe(64))'
 
 ### Уведомления о заявках
 
-Email отправляется на адрес из «Настроек сайта» в админке; если он не задан — на `CONTACT_EMAIL`. Для SMTP заполните в `.env` `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD` и `DEFAULT_FROM_EMAIL`.
+Email отправляется на адрес из «Настроек сайта» в админке; если он не задан — на `CONTACT_EMAIL`. Для SMTP заполните в `.env` `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS`, `EMAIL_USE_SSL`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD` и `DEFAULT_FROM_EMAIL`.
 
 Чтобы отправлять заявки в Telegram:
 
