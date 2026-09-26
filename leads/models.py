@@ -6,6 +6,16 @@ from django.db import models
 class SiteSettings(models.Model):
     brand_name = models.CharField("Название бренда", max_length=120, default="IT GROUP")
     brand_tagline = models.CharField("Короткое описание", max_length=240, default="Сайты и цифровые решения для бизнеса")
+    THEME_CHOICES = [("dark", "Тёмная"), ("light", "Светлая")]
+    FONT_CHOICES = [
+        ("dm_sans", "DM Sans + Manrope"),
+        ("manrope", "Manrope"),
+        ("inter", "Inter"),
+        ("system", "Системный шрифт"),
+        ("georgia", "Georgia"),
+    ]
+    FONT_SCALE_CHOICES = [(90, "Компактный · 90%"), (100, "Стандартный · 100%"), (110, "Крупный · 110%"), (120, "Очень крупный · 120%")]
+
     site_url = models.URLField("Публичный адрес сайта", blank=True, help_text="Например, https://karpiev.ru. Если пусто, используется SITE_URL из .env.")
     logo_icon = models.ImageField("Логотип-иконка", upload_to="branding/", blank=True, help_text="PNG, JPG или WebP до 2 МБ. Отображается в шапке, подвале и админке.")
     phone = models.CharField("Телефон", max_length=80, blank=True)
@@ -17,9 +27,13 @@ class SiteSettings(models.Model):
     work_hours = models.CharField("График работы", max_length=160, blank=True)
     requisites = models.TextField("Реквизиты", blank=True)
     footer_text = models.CharField("Текст в подвале", max_length=300, blank=True, default="Сайты и цифровые решения, связанные с задачами бизнеса.")
+    site_theme = models.CharField("Тема публичного сайта", max_length=5, choices=THEME_CHOICES, default="dark")
+    font_family = models.CharField("Шрифт сайта", max_length=20, choices=FONT_CHOICES, default="dm_sans")
+    font_scale = models.PositiveSmallIntegerField("Размер текста", choices=FONT_SCALE_CHOICES, default=100)
+    light_background_color = models.CharField("Цвет фона светлой темы", max_length=7, default="#F7F9FC", validators=[RegexValidator(r"^#[0-9A-Fa-f]{6}$", "Укажите цвет в формате #RRGGBB")])
     primary_color = models.CharField("Основной акцентный цвет", max_length=7, default="#417CFF", validators=[RegexValidator(r"^#[0-9A-Fa-f]{6}$", "Укажите цвет в формате #RRGGBB")])
     secondary_color = models.CharField("Дополнительный акцентный цвет", max_length=7, default="#52D6DC", validators=[RegexValidator(r"^#[0-9A-Fa-f]{6}$", "Укажите цвет в формате #RRGGBB")])
-    background_color = models.CharField("Цвет фона", max_length=7, default="#0A0D14", validators=[RegexValidator(r"^#[0-9A-Fa-f]{6}$", "Укажите цвет в формате #RRGGBB")])
+    background_color = models.CharField("Цвет фона тёмной темы", max_length=7, default="#0A0D14", validators=[RegexValidator(r"^#[0-9A-Fa-f]{6}$", "Укажите цвет в формате #RRGGBB")])
     yandex_metrika_id = models.CharField("ID Яндекс Метрики", max_length=40, blank=True)
     notification_email = models.EmailField("Email для заявок", blank=True, help_text="Если пусто, используется контактный email или CONTACT_EMAIL из .env.")
     email_notifications_enabled = models.BooleanField("Отправлять заявки на email", default=True)

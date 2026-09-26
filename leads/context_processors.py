@@ -3,6 +3,15 @@ from django.templatetags.static import static
 from .models import NavigationItem, SiteSettings
 
 
+FONT_STACKS = {
+    "dm_sans": ("'DM Sans', Arial, sans-serif", "'Manrope', 'DM Sans', Arial, sans-serif"),
+    "manrope": ("'Manrope', Arial, sans-serif", "'Manrope', Arial, sans-serif"),
+    "inter": ("'Inter', Arial, sans-serif", "'Inter', Arial, sans-serif"),
+    "system": ("system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"),
+    "georgia": ("Georgia, 'Times New Roman', serif", "Georgia, 'Times New Roman', serif"),
+}
+
+
 def site_settings(request):
     config = SiteSettings.objects.first()
     phone = config.phone if config and config.phone else "[УКАЗАТЬ ТЕЛЕФОН]"
@@ -10,8 +19,14 @@ def site_settings(request):
     navigation = NavigationItem.objects.filter(is_visible=True)
     site_url = (config.site_url if config and config.site_url else settings.SITE_URL).rstrip("/")
     logo_url = config.logo_icon.url if config and config.logo_icon else static("graphics/it-group-lion.png")
+    theme = config.site_theme if config else "dark"
+    font, display = FONT_STACKS.get(config.font_family if config else "dm_sans", FONT_STACKS["dm_sans"])
     return {
         "SITE_URL": site_url,
+        "site_theme": theme,
+        "site_font_family": font,
+        "site_display_family": display,
+        "site_font_scale": (config.font_scale if config else 100) / 100,
         "site_logo_url": logo_url,
         "site_config": config,
         "site_brand": config.brand_name if config else "IT GROUP",
@@ -26,5 +41,5 @@ def site_settings(request):
         "site_navigation": navigation,
         "site_primary_color": config.primary_color if config else "#417CFF",
         "site_secondary_color": config.secondary_color if config else "#52D6DC",
-        "site_background_color": config.background_color if config else "#0A0D14",
+        "site_background_color": (config.light_background_color if config else "#F7F9FC") if theme == "light" else (config.background_color if config else "#0A0D14"),
     }

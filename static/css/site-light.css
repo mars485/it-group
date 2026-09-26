@@ -1,0 +1,110 @@
+/* Public light theme. Loaded only when selected in Site Settings. */
+:root {
+  --surface: #ffffff;
+  --surface2: #edf3fb;
+  --line: #d8e2ef;
+  --text: #17253d;
+  --muted: #51627a;
+}
+body { color-scheme: light; }
+.site-header { background: rgba(247, 249, 252, .94); border-bottom-color: var(--line); }
+.main-nav { color: #40526b; }
+.main-nav a:hover, .footer-grid a:hover, .footer-bottom a:hover { color: #1c5fce; }
+.header-cta { border-color: #b8c8dd; }
+.header-cta:hover { background: #e7f1ff; }
+.eyebrow, .hero-note, .dash-period, .dash-foot, .form-heading, .contact-details small { color: #566a84; }
+.hero-lead, .section-intro, .problem-card p, .service-card p,
+.feature-card p, .why-list p, .case-card>p, .case-card details,
+.price-card>p, .faq-list details p, .legal-copy p, .success-state p,
+.project-modal-intro>p, .project-modal-placeholder p { color: #4d6079; }
+.gradient-text { background-image: linear-gradient(100deg, #1956bb 3%, #286bd2 48%, #067b83 100%); }
+.button-secondary { background: #fff; border-color: #b8c8dc; color: var(--text); }
+.button-secondary:hover { background: #ecf4ff; border-color: #6c9ad9; }
+.text-link, .card-link, .project-modal-direct, .consent a { color: #1b5cbd; }
+.text-link:hover, .project-modal-direct:hover { color: #093f96; }
+
+.trust-strip, .flow-section, .cases-section, .pricing-section { background: #edf3fa; border-color: var(--line); }
+.problem-section, .process-section { background: linear-gradient(180deg, var(--bg), #edf3fb); }
+.realestate-section { background: linear-gradient(130deg, #eaf3fd, #f5f9ff 65%); border-color: var(--line); }
+.contact-section { background: radial-gradient(ellipse at 8% 50%, rgba(49, 122, 222, .1), transparent 40%), linear-gradient(130deg, #edf4fc, var(--bg)); border-color: var(--line); }
+.faq-section { background: var(--bg); }
+.trust-items span, .contact-points, .solution-banner p, .contact-details .muted { color: #4d6079; }
+
+.problem-card, .service-card, .case-card, .price-card, .info-card,
+.feature-card, .form-card, .feature-panel, .flow-step {
+  background: #fff; border-color: var(--line);
+  box-shadow: 0 12px 32px rgba(28, 66, 112, .05);
+}
+.problem-card { background: linear-gradient(145deg, #fff, #f5f9fe); }
+.service-card { background: linear-gradient(140deg, #fff, #f4f8fe); }
+.service-card:hover { background: #eaf3ff; border-color: #8fb5e8; }
+.process-card { background: linear-gradient(180deg, #fff, #f1f6fd); border-color: var(--line); border-top-color: #9cb8dd; }
+.solution-banner { background: linear-gradient(100deg, #f0f6ff, #fff); border-color: #c9d9ed; }
+.solution-banner strong { color: var(--text); }
+.solution-mark, .trust-item>i, .funnel-icon, .feature-list i,
+.problem-card-top .graphic-icon, .service-icon, .feature-card-top>i,
+.info-card-top>i, .process-number, .process-icon {
+  background: #e7f1ff; border-color: #cbdcf3; color: #245bb2;
+}
+.process-number { color: #245bb2 !important; }
+.feature-list>div, .price-card ul, .metric-list span { color: #3e526b; }
+.feature-list>div, .why-list>div, .faq-list details, .price-bottom { border-color: var(--line); }
+.feature-panel-head, .feature-panel-foot, .flow-step span,
+.price-bottom>span, .case-meta, .service-number, .service-arrow { color: #526780; }
+.feature-panel-foot, .feature-list>div, .dash-foot { border-color: var(--line); }
+.flow-step.active, .featured-price { background: linear-gradient(135deg, #dcecff, #fff); border-color: #8cb8ef; }
+.flow-step small, .info-card>span, .feature-card>span,
+.feature-card-top>span, .info-card-top>span { color: #235caf; }
+.flow>i { color: #6e85a5; }
+
+.dashboard { background: linear-gradient(140deg, #fff, #edf4fd); border-color: #c6d7ed; box-shadow: 0 28px 70px rgba(25, 57, 102, .14); }
+.dash-brand { color: var(--text); }
+.funnel-row { background: #fff; border-color: var(--line); }
+.funnel-row.active { background: linear-gradient(100deg, #e9f3ff, #f9fbff); border-color: #87b3ef; }
+.funnel-row small, .funnel-row>span { color: #526780; }
+.funnel-connector { background: #9bb4d0; }
+.float-tag { background: #fff; border-color: #ccdaed; color: #354963; box-shadow: 0 10px 30px rgba(35, 71, 121, .12); }
+
+.form-card { box-shadow: 0 20px 50px rgba(32, 67, 111, .08); }
+.field label { color: #354963; }
+.field label small, .form-legal { color: #566a84; }
+.field input, .field textarea, .field select {
+  background: #fff; color: var(--text); border-color: #b9c9dc;
+}
+.field input::placeholder, .field textarea::placeholder { color: #667992; }
+.field input[type=file] { color: #40526b; }
+.consent { color: #4c5e75; }
+.form-alert { background: #fff0f0; border-color: #e8b6b9; color: #9b2535; }
+.field ul.errorlist, .errorlist { color: #aa2840; }
+.success-icon { background: #d8f5e9; color: #197455; }
+
+.realty-visual { background: radial-gradient(ellipse at 50% 110%, #b9dbfa, transparent 55%), linear-gradient(130deg, #daeafd, #f1f7ff); }
+.business-visual { background: radial-gradient(ellipse at 90% 20%, #c6defa, transparent 48%), linear-gradient(130deg, #e0ecff, #f5f9ff); }
+.concept-label { background: rgba(255, 255, 255, .9); border-color: #b7cbe4; color: #315074; }
+.mini-property, .mini-dashboard { background: rgba(255, 255, 255, .94); border-color: #b7cbe4; box-shadow: 0 20px 45px rgba(32, 67, 111, .15); }
+.mini-property small, .mini-dashboard small, .mini-search span { color: #36547a; }
+.mini-search span { border-color: #c7d5e7; }
+.property-graphic { background: linear-gradient(120deg, #e8f3ff, #fff); border-color: #c2d6ed; }
+.property-graphic span, .property-graphic b { color: #345072; }
+.metric-list span { border-color: #c7d5e7; }
+.notice { background: #fff5df; border-color: #dec17d; color: #6a4b10; }
+
+.site-footer { background: #e9f0f9; border-color: var(--line); }
+.footer-grid a, .footer-grid span, .muted, .footer-bottom, .footer-bottom a { color: #495d76; }
+.footer-grid .brand, .brand-name, .footer-grid .brand-name { color: var(--text); }
+.footer-grid .brand-name-it { color: #d52231; }
+.footer-bottom { border-color: #cedbea; }
+.site-footer .brand-mark, .site-header .brand-mark { background: #050608; }
+
+.project-modal-backdrop { background: rgba(18, 37, 65, .58); }
+.project-modal-panel { background: radial-gradient(ellipse at 12% 0, rgba(65, 124, 255, .13), transparent 42%), linear-gradient(145deg, #fff, #f5f9ff 72%); border-color: #bfcee0; box-shadow: 0 32px 100px rgba(16, 38, 70, .24); }
+.project-modal-intro { background: linear-gradient(155deg, #edf5ff, #f8fbff); border-color: var(--line); }
+.project-modal-kicker, .project-modal-points span { color: #435b7c; }
+.project-modal-points b, .project-modal-close { background: #e7f1ff; border-color: #c9dbf2; color: #245bb2; }
+.project-modal-close:hover { color: #164b9a; }
+.project-modal-content .form-card { background: none; box-shadow: none; }
+
+@media (max-width: 760px) {
+  .main-nav { background: #fff; border-color: var(--line); box-shadow: 0 16px 35px rgba(30, 62, 105, .12); }
+  .main-nav a { border-color: var(--line); }
+}

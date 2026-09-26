@@ -59,7 +59,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
     fieldsets = (
         ("Бренд и адрес сайта", {"fields": ("brand_name", "brand_tagline", "site_url", "logo_icon", "footer_text")}),
         ("Контакты", {"fields": ("phone", "email", "telegram_url", "whatsapp_url", "city", "address", "work_hours", "requisites")}),
-        ("Оформление", {"fields": ("primary_color", "secondary_color", "background_color")}),
+        ("Оформление публичного сайта", {"fields": ("site_theme", "font_family", "font_scale", "primary_color", "secondary_color", "background_color", "light_background_color")}),
         ("Аналитика", {"fields": ("yandex_metrika_id",)}),
         ("Заявки по email", {"fields": ("email_notifications_enabled", "notification_email", "smtp_host", "smtp_port", "smtp_use_tls", "smtp_use_ssl", "smtp_user", "smtp_password", "clear_smtp_password", "smtp_from_email")}),
         ("Заявки в Telegram", {"fields": ("telegram_notifications_enabled", "telegram_bot_token", "clear_telegram_bot_token", "telegram_chat_id")}),
