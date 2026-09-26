@@ -88,3 +88,7 @@ body.project-modal-open{overflow:hidden}
 .project-modal-content .success-state{padding:38px 12px}
 @media(max-width:680px){.project-modal{padding:12px}.project-modal-panel{display:block;border-radius:20px;max-height:calc(100dvh - 24px)}.project-modal-intro{padding:28px 22px 20px;border-right:0;border-bottom:1px solid rgba(126,166,221,.13)}.project-modal-intro h2{margin:20px 45px 9px 0;font-size:30px}.project-modal-intro>p{font-size:12px;margin-bottom:0}.project-modal-points{display:none}.project-modal-content{padding:22px}.project-modal-content .field{margin-bottom:12px}.project-modal-content .form-card{padding:0}.project-modal-content .form-heading{margin-bottom:12px}.project-modal-content .form-row{display:grid;grid-template-columns:1fr;gap:0}.project-modal-content .consent{font-size:11px}.project-modal-content .form-submit{width:100%}}
 @media(prefers-reduced-motion:reduce){.project-modal,.project-modal-panel{transition:none}}
+
+/* IT GROUP lion logo */
+.brand-mark{overflow:hidden;background:#050608;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 5px 18px rgba(0,0,0,.24)}.brand-mark .brand-lion{display:block;width:100%;height:100%;object-fit:cover;object-position:center}.brand-name{color:#f4f7fb}.brand-name-it{color:#ff303a}.brand-dot{color:#ff303a}
+@media(max-width:760px){.brand-mark{width:32px;height:32px;border-radius:10px}}
