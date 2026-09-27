@@ -1,0 +1,11 @@
+import { cpSync, mkdirSync, existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
+const root = resolve(fileURLToPath(new URL('../../', import.meta.url)));
+const source = resolve(root, 'static');
+const dest = resolve(root, 'astro/public');
+if (!existsSync(source)) throw new Error('Original static/ directory is missing');
+mkdirSync(dest, { recursive: true });
+for (const folder of ['css', 'js', 'graphics']) cpSync(resolve(source, folder), resolve(dest, folder), { recursive: true, force: true });
+cpSync(resolve(source, 'favicon.svg'), resolve(dest, 'favicon.svg'), { force: true });
+console.log('Original CSS, JavaScript and graphics copied to astro/public');
