@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import LeadForm from '../components/LeadForm.astro';
 const services=[['Разработка сайтов','/razrabotka-sajtov/','Лендинги, корпоративные сайты и интернет-магазины.'],['Продвижение и реклама','/prodvizhenie-i-reklama/','Поисковое продвижение, контекстная реклама и аналитика.'],['Сайты для недвижимости','/sajty-dlya-agentstv-nedvizhimosti/','Каталоги объектов, формы и интеграции с CRM.']];
 ---
 <Base title="IT GROUP — сайты, реклама и автоматизация" description="Разработка сайтов, реклама, аналитика и автоматизация для малого бизнеса.">
@@ -7,5 +8,5 @@ const services=[['Разработка сайтов','/razrabotka-sajtov/','Ле
 <section class="trust-strip"><div class="container trust-items"><span class="trust-item">Полный цикл разработки</span><span class="trust-item">Клиенты по всей России</span><span class="trust-item">Фокус на недвижимости</span><span class="trust-item">Месяц бесплатных правок</span></div></section>
 <section class="section services-section"><div class="container"><div class="section-heading"><p class="eyebrow">ЧТО ДЕЛАЕМ</p><h2>Цифровые решения под вашу задачу</h2></div><div class="service-grid">{services.map(([title,url,description],i)=><a class="service-card" href={url}><span class="service-number">0{i+1}</span><span class="service-arrow">↗</span><h3>{title}</h3><p>{description}</p><span class="card-link">Подробнее →</span></a>)}</div></div></section>
 <section class="section flow-section"><div class="container"><div class="section-heading center-heading"><p class="eyebrow">СИСТЕМА ПРОДАЖ</p><h2>От первого касания до следующего контакта</h2></div><div class="flow">{['Трафик','Сайт','Обращение','CRM','Follow-up'].map((step,i)=><div class="flow-step"><small>0{i+1}</small><b>{step}</b></div>)}</div></div></section>
-<section class="section" id="form"><div class="container"><div class="section-heading"><p class="eyebrow">ОБСУДИМ ПРОЕКТ</p><h2>Расскажите о своей задаче</h2><p class="section-intro">Форма заявки будет подключена к Aspro Cloud перед публикацией. Пока доступна страница контактов.</p><a class="button button-primary" href="/kontakty/">Контакты ↗</a></div></div></section>
+<section class="section" id="form"><div class="container"><div class="section-heading"><p class="eyebrow">ОБСУДИМ ПРОЕКТ</p><h2>Расскажите о своей задаче</h2><p class="section-intro">Опишите задачу — подготовим предварительный план работ.</p><LeadForm /></div></div></section>
 </Base>
