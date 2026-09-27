@@ -1,5 +1,5 @@
 ---
-import Base from '../layouts/Base.astro';
+import Base from '../../layouts/Base.astro';
 const cards = [["Лендинги","/#form","Для отдельных предложений и рекламных кампаний."],["Корпоративные сайты","/#form","Структура услуг и понятный путь клиента."],["Интернет-магазины","/#form","Каталог, корзина и интеграции под задачу."]];
 ---
 <Base title="Разработка сайтов — IT GROUP" description="Разрабатываем лендинги, корпоративные сайты и интернет-магазины: от прототипа до запуска."><section class="page-hero"><div class="container"><p class="eyebrow">IT GROUP</p><h1>Сайты для бизнеса</h1><p class="hero-lead">Разрабатываем лендинги, корпоративные сайты и интернет-магазины: от прототипа до запуска.</p></div></section><section class="section"><div class="container"><div class="service-grid">{cards.map(([name,url,text],i)=><a class="service-card" href={url}><span class="service-number">0{i+1}</span><span class="service-arrow">↗</span><h3>{name}</h3><p>{text}</p><span class="card-link">Подробнее →</span></a>)}</div></div></section><section class="section"><div class="container"><a class="button button-primary" href="/#form">Обсудить проект ↗</a></div></section></Base>
