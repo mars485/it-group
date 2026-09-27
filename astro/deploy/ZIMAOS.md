@@ -1,17 +1,32 @@
-# ZimaOS: безопасный предпросмотр
+# ZimaOS: прямая загрузка и безопасный предпросмотр
 
-Последняя сборка: https://github.com/mars485/it-group/actions/workflows/astro-build.yml
+GitHub Actions собирает сайт и публикует предварительную версию в GitHub Releases:
+https://github.com/mars485/it-group/releases/tag/site-preview-latest
 
-1. Откройте успешный запуск GitHub Actions и скачайте артефакт **it-group-static**. GitHub может потребовать вход.
-2. Передайте ZIP на ZimaOS (SFTP) и распакуйте содержимое в `/DATA/AppData/it-group-preview/site/`. Проверьте, что файл `/DATA/AppData/it-group-preview/site/index.html` существует. Не распаковывайте ZIP в текущий работающий каталог сайта.
-3. Для локального предпросмотра без Docker и без доступа извне:
+## Скачать и обновить одной командой
+
+Подключитесь по SSH к ZimaOS. Создайте каталог, затем загрузите скрипт из ветки astro-migration и запустите:
+
+```sh
+sudo mkdir -p /DATA/AppData/it-group-preview
+sudo chown "$(id -u):$(id -g)" /DATA/AppData/it-group-preview
+curl -fL https://raw.githubusercontent.com/mars485/it-group/astro-migration/astro/deploy/update-preview.sh -o /DATA/AppData/it-group-preview/update-preview.sh
+sh /DATA/AppData/it-group-preview/update-preview.sh
+```
+
+Скрипт скачивает https://github.com/mars485/it-group/releases/download/site-preview-latest/it-group-site.tar.gz, проверяет наличие index.html, переносит новую версию в /DATA/AppData/it-group-preview/site и сохраняет предыдущую в site.previous. Не запускайте этот скрипт, пока первый GitHub Actions Release не завершится успешно.
+
+Для локального предпросмотра, если установлен Python 3:
 
 ```sh
 cd /DATA/AppData/it-group-preview/site
 python3 -m http.server 18001 --bind 127.0.0.1
 ```
 
-4. В другой SSH-сессии: `curl -I http://127.0.0.1:18001/`. Чтобы просмотреть сайт в браузере с компьютера, используйте SSH-туннель: `ssh -L 18001:127.0.0.1:18001 ainur@192.168.1.160`, затем откройте http://127.0.0.1:18001.
-5. Перед публикацией необходимо завершить серверный webhook Aspro Cloud, согласовать политику обработки данных и проверить форму. Текущий предпросмотр не предназначен для публичного запуска.
+На компьютере создайте SSH-туннель:
 
-Не меняйте DNS и не отключайте существующие сервисы Nginx Proxy Manager на этапе предпросмотра. Публичный Nginx будет настроен отдельно после подтверждения.
+```sh
+ssh -L 18001:127.0.0.1:18001 ainur@192.168.1.160
+```
+
+Откройте http://127.0.0.1:18001. Публичную публикацию отложите до подключения защищённого webhook CRM и утверждения политики обработки персональных данных.
