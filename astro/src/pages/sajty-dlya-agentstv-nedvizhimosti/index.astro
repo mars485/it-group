@@ -1,0 +1,5 @@
+---
+import Base from '../layouts/Base.astro';
+const cards = [["Каталог объектов","/#form","Поиск, фильтры и карточки недвижимости."],["Заявки и просмотры","/#form","Формы связи и запись на просмотр."],["CRM и аналитика","/#form","Учёт обращений и контроль следующего контакта."]];
+---
+<Base title="Сайты для агентств недвижимости — IT GROUP" description="Сайт с каталогом объектов, фильтрами, карточками и передачей обращений в CRM."><section class="page-hero"><div class="container"><p class="eyebrow">IT GROUP</p><h1>Недвижимость: от каталога до заявки</h1><p class="hero-lead">Сайт с каталогом объектов, фильтрами, карточками и передачей обращений в CRM.</p></div></section><section class="section"><div class="container"><div class="service-grid">{cards.map(([name,url,text],i)=><a class="service-card" href={url}><span class="service-number">0{i+1}</span><span class="service-arrow">↗</span><h3>{name}</h3><p>{text}</p><span class="card-link">Подробнее →</span></a>)}</div></div></section><section class="section"><div class="container"><a class="button button-primary" href="/#form">Обсудить проект ↗</a></div></section></Base>
