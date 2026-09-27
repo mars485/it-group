@@ -1,0 +1,5 @@
+---
+import Base from '../layouts/Base.astro';
+const cards = [["Разработка сайтов","/razrabotka-sajtov/","Лендинги, корпоративные сайты и интернет-магазины."],["Продвижение и реклама","/prodvizhenie-i-reklama/","SEO, Яндекс Директ и аналитика."],["Сайты для недвижимости","/sajty-dlya-agentstv-nedvizhimosti/","Каталог, фильтры, формы и интеграция с CRM."]];
+---
+<Base title="Услуги IT GROUP — IT GROUP" description="Собираем нужный набор: сайт, продвижение, CRM, аналитику и поддержку."><section class="page-hero"><div class="container"><p class="eyebrow">IT GROUP</p><h1>Инструменты для роста бизнеса</h1><p class="hero-lead">Собираем нужный набор: сайт, продвижение, CRM, аналитику и поддержку.</p></div></section><section class="section"><div class="container"><div class="service-grid">{cards.map(([name,url,text],i)=><a class="service-card" href={url}><span class="service-number">0{i+1}</span><span class="service-arrow">↗</span><h3>{name}</h3><p>{text}</p><span class="card-link">Подробнее →</span></a>)}</div></div></section><section class="section"><div class="container"><a class="button button-primary" href="/#form">Обсудить проект ↗</a></div></section></Base>
