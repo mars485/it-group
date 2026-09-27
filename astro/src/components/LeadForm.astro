@@ -1,0 +1,34 @@
+---
+const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT || '';
+---
+<div class="form-card"><form id="lead-form" data-endpoint={endpoint} novalidate><div class="form-heading"><span>ФОРМА ЗАЯВКИ</span><span>~ 2 минуты</span></div><div class="form-alert" id="lead-message" role="status" aria-live="polite" hidden></div><div class="form-row"><div class="field"><label for="lead-name">Имя *</label><input id="lead-name" name="name" required maxlength="100" autocomplete="name"/></div><div class="field"><label for="lead-phone">Телефон *</label><input id="lead-phone" name="phone" required maxlength="30" type="tel" autocomplete="tel"/></div></div><div class="form-row"><div class="field"><label for="lead-messenger">Telegram или WhatsApp</label><input id="lead-messenger" name="messenger" maxlength="100"/></div><div class="field"><label for="lead-company">Название компании</label><input id="lead-company" name="company" maxlength="150"/></div></div><div class="field"><label for="lead-project">Тип проекта</label><select id="lead-project" name="project_type"><option value="">Выберите направление</option><option>Разработка сайта</option><option>Продвижение и реклама</option><option>CRM и автоматизация</option><option>Доработка сайта</option><option>Другое</option></select></div><div class="field"><label for="lead-description">Кратко опишите задачу</label><textarea id="lead-description" name="description" maxlength="3000" rows="4"></textarea></div><div class="field"><label for="lead-budget">Желаемый бюджет</label><input id="lead-budget" name="budget" maxlength="100"/></div><div class="field" style="position:absolute;left:-9999px" aria-hidden="true"><label for="lead-website">Сайт</label><input id="lead-website" name="website" tabindex="-1" autocomplete="off"/></div><input type="hidden" name="source" value="karpiev.ru"/><input type="hidden" name="utm_source"/><input type="hidden" name="utm_medium"/><input type="hidden" name="utm_campaign"/><input type="hidden" name="utm_content"/><input type="hidden" name="utm_term"/><label class="consent"><input type="checkbox" name="consent" required/><span>Согласен на обработку персональных данных по <a href="/politika-konfidencialnosti/" target="_blank" rel="noopener">политике конфиденциальности</a>.</span></label><button class="button button-primary form-submit" type="submit">Получить предложение ↗</button><p class="form-legal">Данные отправляются только после вашего согласия.</p></form></div>
+<script>
+const form = document.querySelector<HTMLFormElement>('#lead-form');
+if (form) {
+  const message = document.querySelector<HTMLElement>('#lead-message');
+  const button = form.querySelector<HTMLButtonElement>('button[type=submit]');
+  const params = new URLSearchParams(location.search);
+  for (const key of ['utm_source','utm_medium','utm_campaign','utm_content','utm_term']) {
+    const field = form.elements.namedItem(key) as HTMLInputElement | null;
+    if (field) field.value = (params.get(key) || '').slice(0, 200);
+  }
+  const show = (text: string, success = false) => { if(message){message.hidden=false;message.textContent=text;message.dataset.success=String(success)} };
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    if ((form.elements.namedItem('website') as HTMLInputElement).value) return;
+    const endpoint = form.dataset.endpoint;
+    if (!endpoint) {show('Форма временно недоступна. Пожалуйста, используйте контакты.');return;}
+    if(button) button.disabled = true;
+    try {
+      const payload = Object.fromEntries(new FormData(form).entries());
+      delete payload.website;
+      payload.page_url = location.href;
+      const response = await fetch(endpoint, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if (!response.ok) throw new Error('Lead endpoint rejected request');
+      form.reset();show('Заявка отправлена. Спасибо!', true);
+    } catch {show('Не удалось отправить заявку. Попробуйте позже или свяжитесь с нами через контакты.');}
+    finally {if(button) button.disabled = false;}
+  });
+}
+</script>
