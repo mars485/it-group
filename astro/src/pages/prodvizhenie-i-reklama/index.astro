@@ -1,5 +1,5 @@
 ---
-import Base from '../layouts/Base.astro';
+import Base from '../../layouts/Base.astro';
 const cards = [["SEO","/#form","Структура сайта, поисковая оптимизация и развитие контента."],["Яндекс Директ","/#form","Рекламные кампании и оптимизация обращений."],["Аналитика","/#form","Оценка источников и конверсий."]];
 ---
 <Base title="Продвижение и реклама — IT GROUP" description="SEO, Яндекс Директ и аналитика под задачи бизнеса."><section class="page-hero"><div class="container"><p class="eyebrow">IT GROUP</p><h1>Привлекаем клиентов и измеряем результат</h1><p class="hero-lead">SEO, Яндекс Директ и аналитика под задачи бизнеса.</p></div></section><section class="section"><div class="container"><div class="service-grid">{cards.map(([name,url,text],i)=><a class="service-card" href={url}><span class="service-number">0{i+1}</span><span class="service-arrow">↗</span><h3>{name}</h3><p>{text}</p><span class="card-link">Подробнее →</span></a>)}</div></div></section><section class="section"><div class="container"><a class="button button-primary" href="/#form">Обсудить проект ↗</a></div></section></Base>
