@@ -55,16 +55,18 @@
 
 **Техническое решение:** встроенный UPDATE_RECORD в DATABASE_EVENT workflow текущей сборки Twenty валидируется, но runtime возвращает `Object record ID and name are required`. Дефект воспроизведён на двух версиях workflow. Оба workflow деактивированы. Инициализация обязательных полей перенесена в точку создания Opportunity (MCP/API/import adapter), что прошло E2E-проверку.
 
-### Cycle 5 — Tasks, Notes, Files, Timeline
+### Cycle 5 — Tasks, Notes, Files, Timeline ✅ COMPLETED 2026-10-07
 **Цель:** история взаимодействия хранится внутри CRM.
 
-- [ ] Связывать задачи со сделками/компаниями/контактами.
-- [ ] Связывать заметки с CRM-записями.
-- [ ] Использовать attachments.
-- [ ] Контролировать timeline activity.
-- [ ] Стандартизировать шаблоны заметок и задач.
+- [x] Tasks связаны с Opportunity / Company / Person через Task Targets.
+- [x] Notes связаны с Opportunity / Company / Person через Note Targets.
+- [x] Принят шаблон задачи: «Цель → Результат».
+- [x] Принят шаблон заметки: «Контекст → Потребность → Договорённости → Следующий контакт».
+- [x] Attachment-модель проверена: файл может быть связан с Opportunity, Company, Person, Task или Note.
+- [x] Проверен Timeline: создание CRM-записей, задач, заметок и target-связей автоматически отражается в Timeline.
+- [x] Проведён E2E-тест и тестовые записи удалены.
 
-Инструменты: Tasks, Notes, Task Targets, Note Targets, Attachments, Timeline Activities.
+**Примечание по файлам:** в workspace на момент проверки нет загруженных Attachment records. API создания Attachment требует реальный уже загруженный `fileId`, поэтому фиктивные файлы не создавались. Контур и целевые связи подтверждены по схеме Twenty.
 
 ### Cycle 6 — Communications
 **Цель:** коммуникации становятся частью CRM-процесса.
@@ -148,4 +150,4 @@ People, Companies, Opportunities, Tasks, Notes; bulk CRUD/upsert; Task/Note Targ
 
 ## Следующий цикл
 
-**Cycle 5 — Tasks, Notes, Files, Timeline.**
+**Cycle 6 — Communications.**
