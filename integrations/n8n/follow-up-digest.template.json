@@ -1,0 +1,73 @@
+{
+  "id": "REPLACE_WITH_WORKFLOW_ID",
+  "name": "IT GROUP — Daily Follow-up digest",
+  "nodes": [
+    {
+      "parameters": {"rule": {"interval": [{"field": "cronExpression", "expression": "0 9 * * *"}]}},
+      "id": "81ad5684-50b8-44c9-8c64-bf9009e5f8fd",
+      "name": "Daily 09:00 Yekaterinburg",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://crm.itgsystem.online/rest/tasks?limit=100",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {"timeout": 10000}
+      },
+      "id": "83b4bad0-d253-4c1d-85e3-4b777e9aa7b8",
+      "name": "Read Twenty tasks",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 300],
+      "credentials": {"httpHeaderAuth": {"id": "REPLACE_WITH_TWENTY_CREDENTIAL_ID", "name": "IT GROUP Twenty API"}},
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsCode": "const response=$input.first().json; if(response.pageInfo?.hasNextPage) throw new Error('Twenty task result exceeds 100; add pagination before sending digest'); const tasks=response.data?.tasks; if(!Array.isArray(tasks)) throw new Error('Unexpected Twenty tasks response'); const localDate=d=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Yekaterinburg',year:'numeric',month:'2-digit',day:'2-digit'}).format(d); const today=localDate(new Date()); let dueToday=0,overdue=0; for(const t of tasks){ if(t.deletedAt||t.status==='DONE'||!String(t.title??'').startsWith('Follow-up:')||!t.dueAt) continue; const date=localDate(new Date(t.dueAt)); if(date<today) overdue++; else if(date===today) dueToday++; } if(dueToday+overdue===0) return []; return [{json:{dueToday,overdue,text:`IT GROUP · Follow-up\nСегодня: ${dueToday}\nПросрочено: ${overdue}\nОткройте задачи в Twenty: https://crm.itgsystem.online/objects/tasks`}}];"
+      },
+      "id": "659a0e88-fdf7-4b1e-9d82-7af16936fb2c",
+      "name": "Count due Follow-ups",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 300]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "BIND_APPROVED_CHAT_ID_IN_N8N",
+        "text": "={{$json.text}}",
+        "additionalFields": {}
+      },
+      "id": "67337bd1-5195-4ad4-af2d-a16d97de8d88",
+      "name": "Telegram IT GROUP digest",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [960, 300],
+      "disabled": true,
+      "credentials": {"telegramApi": {"id": "REPLACE_WITH_TELEGRAM_CREDENTIAL_ID", "name": "IT GROUP"}},
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    }
+  ],
+  "connections": {
+    "Daily 09:00 Yekaterinburg": {"main": [[{"node": "Read Twenty tasks", "type": "main", "index": 0}]]},
+    "Read Twenty tasks": {"main": [[{"node": "Count due Follow-ups", "type": "main", "index": 0}]]},
+    "Count due Follow-ups": {"main": [[{"node": "Telegram IT GROUP digest", "type": "main", "index": 0}]]}
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Yekaterinburg",
+    "saveDataSuccessExecution": "all",
+    "saveDataErrorExecution": "all"
+  },
+  "active": false
+}
