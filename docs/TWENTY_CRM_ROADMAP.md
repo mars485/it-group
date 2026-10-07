@@ -85,10 +85,9 @@
 ### Cycle 7 — Integrations + Webhooks ⏳ IN PROGRESS 2026-10-07
 **Цель:** связать Twenty с инфраструктурой IT GROUP.
 
-- [x] Website → Twenty: активный `IT GROUP — Website Lead → CRM`; четыре реальные сделки `source=WEBSITE` подтверждены.
+- [x] Website → Twenty: MODX `ITG_LeadHandler` создаёт записи через Twenty REST API. Исправлена область видимости API-настроек в snippet; контрольная заявка через `lead-submit.html` вернула HTTP 200, создала Person + Opportunity + Task и дала два события в n8n. Тестовые записи мягко удалены. Отдельный `IT GROUP — Website Lead → CRM` также ACTIVE, но сайт его сейчас не вызывает.
 - [x] n8n на ZimaOS: существующий CasaOS Compose, контейнер работает; отдельный persistent mount `/DATA/AppData/n8n`.
-- [x] Twenty → n8n: подписка `opportunity.created/updated` зарегистрирована; n8n receiver опубликован и прямой POST проверен.
-- [ ] Доставка реального события Twenty → n8n: две тестовые сделки не вызвали n8n execution; причина требует диагностики.
+- [x] Twenty → n8n: подписка `opportunity.created/updated` доставляет события через существующий HTTPS-прокси `n8n.karpiev.ru`; создание и обновление тестовой сделки дали успешные n8n executions 21 и 22.
 - [ ] n8n → Twenty: подготовить и проверить обратный вызов без создания дублей.
 - [ ] Telegram: credential бота есть в n8n, подтверждённого Chat ID для уведомлений нет; узел отправки выключен.
 - [x] HTTP health check: активный `IT GROUP — Integration Health Check` проверяет `https://itgsystem.ru/`.
