@@ -66,18 +66,21 @@
 - [x] Проверен Timeline: создание CRM-записей, задач, заметок и target-связей автоматически отражается в Timeline.
 - [x] Проведён E2E-тест и тестовые записи удалены.
 
-**Примечание по файлам:** в workspace на момент проверки нет загруженных Attachment records. API создания Attachment требует реальный уже загруженный `fileId`, поэтому фиктивные файлы не создавались. Контур и целевые связи подтверждены по схеме Twenty.
+**Примечание по файлам:** реальный Attachment подтверждён после загрузки пользователем: файл связан с Opportunity и отражается в Timeline.
 
-### Cycle 6 — Communications
+### Cycle 6 — Communications ✅ COMPLETED 2026-10-07
 **Цель:** коммуникации становятся частью CRM-процесса.
 
-- [ ] Подключить рабочий email.
-- [ ] Черновики follow-up писем.
-- [ ] Отправка писем из CRM-процесса.
-- [ ] Messages / threads.
-- [ ] Calendar events + participants.
-- [ ] Call recordings при доступности.
-- [ ] Campaigns / Lists.
+- [x] Рабочий email `info@itgsystem.ru` подключён через IMAP/SMTP/CalDAV.
+- [x] Messages / Threads синхронизируются: подтверждены реальные сообщения и треды.
+- [x] Participants синхронизируются; адрес `info@itgsystem.ru` подтверждён как отправитель.
+- [x] Безопасный тест черновика выполнен через подключённый аккаунт; внешняя отправка не выполнялась.
+- [x] Calendar синхронизируется: в CRM присутствуют реальные календарные события.
+- [x] Calendar participants проверены; на момент проверки записей участников нет.
+- [x] Call Recordings проверены; на момент проверки записей нет.
+- [x] Campaigns / Lists проверены; на момент проверки записей нет.
+
+**E2E:** подключённый аккаунт `info@itgsystem.ru` обнаружен Twenty как `imap_smtp_caldav`; подтверждены реальные Message → Thread → Participants и Calendar Events. Создан тестовый черновик `[TEST] Twenty CRM — Cycle 6 Communications` самому себе без отправки. Отдельная автоматизация `IT GROUP — Напоминание о Follow-up` оставлена в DRAFT: её SEND_EMAIL-шаг не активирован, чтобы исключить автоматическую внешнюю отправку без явного утверждения получателей и текста.
 
 ### Cycle 7 — Integrations + Webhooks
 **Цель:** связать Twenty с инфраструктурой IT GROUP.
@@ -150,4 +153,4 @@ People, Companies, Opportunities, Tasks, Notes; bulk CRUD/upsert; Task/Note Targ
 
 ## Следующий цикл
 
-**Cycle 6 — Communications.**
+**Cycle 7 — Integrations + Webhooks.**
