@@ -1,0 +1,56 @@
+{
+  "id": "REPLACE_WITH_WORKFLOW_ID",
+  "name": "IT GROUP — Twenty opportunity events",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "REPLACE_WITH_PRIVATE_PATH",
+        "responseMode": "onReceived",
+        "options": {"responseCode": 200}
+      },
+      "id": "adfa4426-07b8-464e-8e85-e3221d6912a3",
+      "name": "Twenty webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "855168e7-05db-4481-b5c9-28acbd506401"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $json.body ?? {}; const event = String(body.eventName ?? body.event ?? body.type ?? body.name ?? 'unknown'); const record = body.record ?? body.data ?? body.payload ?? {}; const recordId = String(record.id ?? body.recordId ?? body.id ?? ''); return [{json:{event,recordId,receivedAt:new Date().toISOString(),isOpportunity: event === 'opportunity.created' || event === 'opportunity.updated'}}];"
+      },
+      "id": "020c1131-792c-4549-a625-6655f01f76b5",
+      "name": "Normalize event metadata",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendMessage",
+        "chatId": "BIND_APPROVED_CHAT_ID_IN_N8N",
+        "text": "=Новый лид IT GROUP в Twenty: {{$json.recordId}}",
+        "additionalFields": {}
+      },
+      "id": "5bd67b83-932b-44d5-93f3-a42affdb41ba",
+      "name": "Telegram notification — bind recipient before enabling",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [720, 300],
+      "disabled": true
+    }
+  ],
+  "connections": {
+    "Twenty webhook": {"main": [[{"node": "Normalize event metadata", "type": "main", "index": 0}]]},
+    "Normalize event metadata": {"main": [[{"node": "Telegram notification — bind recipient before enabling", "type": "main", "index": 0}]]}
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "all",
+    "saveDataErrorExecution": "all",
+    "saveManualExecutions": true
+  },
+  "active": false
+}

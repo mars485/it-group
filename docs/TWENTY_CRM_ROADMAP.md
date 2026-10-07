@@ -82,15 +82,19 @@
 
 **E2E:** подключённый аккаунт `info@itgsystem.ru` обнаружен Twenty как `imap_smtp_caldav`; подтверждены реальные Message → Thread → Participants и Calendar Events. Создан тестовый черновик `[TEST] Twenty CRM — Cycle 6 Communications` самому себе без отправки. Отдельная автоматизация `IT GROUP — Напоминание о Follow-up` оставлена в DRAFT: её SEND_EMAIL-шаг не активирован, чтобы исключить автоматическую внешнюю отправку без явного утверждения получателей и текста.
 
-### Cycle 7 — Integrations + Webhooks
+### Cycle 7 — Integrations + Webhooks ⏳ IN PROGRESS 2026-10-07
 **Цель:** связать Twenty с инфраструктурой IT GROUP.
 
-- [ ] Website → Twenty.
-- [ ] n8n ↔ Twenty.
-- [ ] Telegram ↔ Twenty.
-- [ ] Webhooks для record events.
-- [ ] HTTP-интеграции через workflow.
-- [ ] Обработка ошибок интеграций.
+- [x] Website → Twenty: активный `IT GROUP — Website Lead → CRM`; четыре реальные сделки `source=WEBSITE` подтверждены.
+- [x] n8n на ZimaOS: существующий CasaOS Compose, контейнер работает; отдельный persistent mount `/DATA/AppData/n8n`.
+- [x] Twenty → n8n: подписка `opportunity.created/updated` зарегистрирована; n8n receiver опубликован и прямой POST проверен.
+- [ ] Доставка реального события Twenty → n8n: две тестовые сделки не вызвали n8n execution; причина требует диагностики.
+- [ ] n8n → Twenty: подготовить и проверить обратный вызов без создания дублей.
+- [ ] Telegram: credential бота есть в n8n, подтверждённого Chat ID для уведомлений нет; узел отправки выключен.
+- [x] HTTP health check: активный `IT GROUP — Integration Health Check` проверяет `https://itgsystem.ru/`.
+- [ ] Сквозной E2E Website → Twenty → n8n → Telegram и обработка ошибок/retry.
+
+Контракт, текущее состояние, тесты и порядок восстановления: [CYCLE7_INTEGRATIONS_RUNBOOK.md](CYCLE7_INTEGRATIONS_RUNBOOK.md). Issue #8 остаётся открытым до полного DoD.
 
 ### Cycle 8 — Workflow Automation
 **Цель:** автоматизировать повторяющиеся операции продаж.
