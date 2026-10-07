@@ -1,0 +1,43 @@
+{
+  "id": "REPLACE_WITH_WORKFLOW_ID",
+  "name": "IT GROUP — Twenty API connectivity check",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "e5c0a4b7-0a3f-4db3-bc1d-20186b06865e",
+      "name": "Manual trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://crm.itgsystem.online/rest/metadata/objects",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {"timeout": 5000}
+      },
+      "id": "31dad887-ea21-4843-b489-273efaf3b4da",
+      "name": "Authenticated Twenty API GET",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "IT GROUP Twenty API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual trigger": {"main": [[{"node": "Authenticated Twenty API GET", "type": "main", "index": 0}]]}
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "none",
+    "saveDataErrorExecution": "all"
+  },
+  "active": false
+}

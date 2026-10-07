@@ -88,7 +88,7 @@
 - [x] Website → Twenty: MODX `ITG_LeadHandler` создаёт записи через Twenty REST API. Исправлена область видимости API-настроек в snippet; контрольная заявка через `lead-submit.html` вернула HTTP 200, создала Person + Opportunity + Task и дала два события в n8n. Тестовые записи мягко удалены. Отдельный `IT GROUP — Website Lead → CRM` также ACTIVE, но сайт его сейчас не вызывает.
 - [x] n8n на ZimaOS: существующий CasaOS Compose, контейнер работает; отдельный persistent mount `/DATA/AppData/n8n`.
 - [x] Twenty → n8n: подписка `opportunity.created/updated` доставляет события через существующий HTTPS-прокси `n8n.karpiev.ru`; создание и обновление тестовой сделки дали успешные n8n executions 21 и 22.
-- [ ] n8n → Twenty: подготовить и проверить обратный вызов без создания дублей.
+- [x] n8n → Twenty: ручной workflow `IT GROUP — Twenty API connectivity check` выполнил успешный authenticated GET к Twenty REST metadata API через зашифрованный n8n credential. Автоматическую запись в CRM не включали, чтобы не создавать дубли при retry.
 - [ ] Telegram: credential бота есть в n8n, подтверждённого Chat ID для уведомлений нет; узел отправки выключен.
 - [x] HTTP health check: активный `IT GROUP — Integration Health Check` проверяет `https://itgsystem.ru/`.
 - [ ] Сквозной E2E Website → Twenty → n8n → Telegram и обработка ошибок/retry.
