@@ -7,24 +7,32 @@
         "httpMethod": "POST",
         "path": "REPLACE_WITH_PRIVATE_PATH",
         "responseMode": "onReceived",
-        "options": {"responseCode": 200}
+        "options": {
+          "responseCode": 200
+        }
       },
       "id": "adfa4426-07b8-464e-8e85-e3221d6912a3",
       "name": "Twenty webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [240, 300],
+      "position": [
+        240,
+        300
+      ],
       "webhookId": "855168e7-05db-4481-b5c9-28acbd506401"
     },
     {
       "parameters": {
-        "jsCode": "const body = $json.body ?? {}; const event = String(body.eventName ?? body.event ?? body.type ?? body.name ?? 'unknown'); const record = body.record ?? body.data ?? body.payload ?? {}; const recordId = String(record.id ?? body.recordId ?? body.id ?? ''); return [{json:{event,recordId,receivedAt:new Date().toISOString(),isOpportunity: event === 'opportunity.created' || event === 'opportunity.updated'}}];"
+        "jsCode": "const body = $input.first().json.body ?? {}; const event = String(body.eventName ?? body.event ?? body.type ?? body.name ?? 'unknown'); const record = body.record ?? body.data ?? body.payload ?? {}; const recordId = String(record.id ?? body.recordId ?? body.id ?? ''); return [{json:{event,recordId,source:String(record.source ?? ''),receivedAt:new Date().toISOString(),isOpportunity: event === 'opportunity.created' || event === 'opportunity.updated'}}];"
       },
       "id": "020c1131-792c-4549-a625-6655f01f76b5",
       "name": "Normalize event metadata",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [480, 300]
+      "position": [
+        480,
+        300
+      ]
     },
     {
       "parameters": {
@@ -38,16 +46,152 @@
       "name": "Telegram notification — bind recipient before enabling",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
-      "position": [720, 300],
+      "position": [
+        720,
+        300
+      ],
       "disabled": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_TELEGRAM_CREDENTIAL_ID",
+          "name": "IT GROUP"
+        }
+      },
       "retryOnFail": true,
       "maxTries": 3,
       "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsCode": "const j=$input.first().json;const h=j.headers??{};const t=String(h['x-twenty-webhook-timestamp']??'');const sig=String(h['x-twenty-webhook-signature']??'').toLowerCase();if(!/^\\d{13}$/.test(t)||Math.abs(Date.now()-Number(t))>300000||!/[0-9a-f]{64}/.test(sig))return [];const body=j.body??{};return [{json:{body,signingInput:t+':'+JSON.stringify(body),providedSignature:sig}}];"
+      },
+      "id": "13c0ef33-45b7-4c2f-b1bd-3177a97dbcd0",
+      "name": "Prepare Twenty signature",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        430,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "action": "hmac",
+        "binaryData": false,
+        "type": "SHA256",
+        "value": "={{$json.signingInput}}",
+        "dataPropertyName": "expectedSignature",
+        "encoding": "hex"
+      },
+      "id": "3a8a0567-9e62-4acd-998b-c9e6a1471c98",
+      "name": "HMAC SHA256",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        620,
+        300
+      ],
+      "credentials": {
+        "crypto": {
+          "id": "REPLACE_WITH_HMAC_CREDENTIAL_ID",
+          "name": "IT GROUP Twenty webhook HMAC"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const j=$input.first().json;const a=String(j.expectedSignature??'').toLowerCase();const b=String(j.providedSignature??'').toLowerCase();if(a.length!==64||b.length!==64)return [];let diff=0;for(let i=0;i<64;i++)diff|=a.charCodeAt(i)^b.charCodeAt(i);if(diff!==0)return [];return [{json:{body:j.body}}];"
+      },
+      "id": "47dd196a-e25f-4ac8-89b2-1d2972d9d5b4",
+      "name": "Verify Twenty signature",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        820,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const j=$input.first().json;if(j.event!=='opportunity.created'||j.source!=='WEBSITE')return [];const id=String(j.recordId??'');if(!/^[0-9a-f-]{36}$/i.test(id))return [];return [{json:{recordId:id,event:j.event}}];"
+      },
+      "id": "970d4804-5d9e-4854-b1c2-1e3d6922f6bb",
+      "name": "Only new website leads",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        300
+      ]
     }
   ],
   "connections": {
-    "Twenty webhook": {"main": [[{"node": "Normalize event metadata", "type": "main", "index": 0}]]},
-    "Normalize event metadata": {"main": [[{"node": "Telegram notification — bind recipient before enabling", "type": "main", "index": 0}]]}
+    "Twenty webhook": {
+      "main": [
+        [
+          {
+            "node": "Prepare Twenty signature",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Twenty signature": {
+      "main": [
+        [
+          {
+            "node": "HMAC SHA256",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HMAC SHA256": {
+      "main": [
+        [
+          {
+            "node": "Verify Twenty signature",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify Twenty signature": {
+      "main": [
+        [
+          {
+            "node": "Normalize event metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize event metadata": {
+      "main": [
+        [
+          {
+            "node": "Only new website leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Only new website leads": {
+      "main": [
+        [
+          {
+            "node": "Telegram notification — bind recipient before enabling",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   },
   "settings": {
     "executionOrder": "v1",
